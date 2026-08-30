@@ -71,6 +71,18 @@ print(10*math.log10(h*nu*B*1e3))   # → -57.96 dBm
 **この計算は自分で再現できる。** 記事に載せれば、読者も検証できる。
 「出典: ○○のブログ」より強い。
 
+### 独立した裏付け（2026-08-30 確認）
+
+**Telecom Infra Project の GNPy（BSD 3-Clause）の実装に、この定数がそのまま現れる。**
+
+```
+gnpy/core/elements.py:714
+    nf_avg = pin_ch - polyval(nf_model.nf_coef, pin_ch) + 58
+```
+
+導出値 −57.96 dBm と一致。**第一原理から導け、かつ業界実装で裏が取れている状態。**
+詳細は `research/07-network-access.md` §5。
+
 ---
 
 ## 2. 波長と周波数の換算（Δν = c·Δλ / λ²）
