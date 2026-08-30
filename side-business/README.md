@@ -42,9 +42,13 @@ Claude Code を使った個人副業の計画。月商1,000円から始めて段
 | [`research/03-marketing-acquisition.md`](research/03-marketing-acquisition.md) | ゼロ予算チャネル比較、SEOの現状、90日集客カレンダー、テンプレ集 |
 | [`research/04-tech-stack.md`](research/04-tech-stack.md) | 技術構成、段階別コスト、MVP設計、Claude Code 開発フロー |
 
-### 記録
+### 作業ファイル（埋めていくもの）
 
-- [`logs/`](logs/) — 週次レビュー（毎週日曜15分）
+| ファイル | 用途 |
+|---|---|
+| [`ideas.md`](ideas.md) | ネタ出し20個 → 記事3本＋本1冊の構成へ組み替える |
+| [`記録簿.xlsx`](記録簿.xlsx) | 売上・経費の記録。所得と20万円ルールの判定は自動計算 |
+| [`logs/TEMPLATE.md`](logs/TEMPLATE.md) | 週次レビューの雛形。コピーして `logs/YYYY-WW.md` として使う |
 
 ---
 
