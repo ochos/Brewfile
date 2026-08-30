@@ -41,6 +41,7 @@ Claude Code を使った個人副業の計画。月商1,000円から始めて段
 | [`research/02-monetization-legal.md`](research/02-monetization-legal.md) | 決済プラットフォーム比較、特商法、ステマ規制、副業の税務 |
 | [`research/03-marketing-acquisition.md`](research/03-marketing-acquisition.md) | ゼロ予算チャネル比較、SEOの現状、90日集客カレンダー、テンプレ集 |
 | [`research/04-tech-stack.md`](research/04-tech-stack.md) | 技術構成、段階別コスト、MVP設計、Claude Code 開発フロー |
+| [`research/06-launch-ops.md`](research/06-launch-ops.md) | X運用設計、ローンチ手順、クロス投稿の規約整理、ニッチ集客、週次30分ルーティン |
 
 ### 作業ファイル（埋めていくもの）
 
@@ -49,6 +50,7 @@ Claude Code を使った個人副業の計画。月商1,000円から始めて段
 | [`ideas.md`](ideas.md) | ネタ出し20個 → 記事3本＋本1冊の構成へ組み替える |
 | [`記録簿.xlsx`](記録簿.xlsx) | 売上・経費の記録。所得と20万円ルールの判定は自動計算 |
 | [`logs/TEMPLATE.md`](logs/TEMPLATE.md) | 週次レビューの雛形。コピーして `logs/YYYY-WW.md` として使う |
+| [`publish/templates/`](publish/templates/) | **コピペで使う運用テンプレ集**（X投稿・返信・ローンチのチェックリスト・週次ルーティン）。索引は [`publish/templates/README.md`](publish/templates/README.md) |
 
 ---
 
