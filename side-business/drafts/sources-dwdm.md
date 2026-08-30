@@ -369,3 +369,359 @@ ITU-T 勧告は**公式には 2007 年以降、無償ダウンロード可**と�
 
 ---
 
+---
+
+## 7. 【2026-08-30 追記】前提の訂正を受けた調査範囲の拡大
+
+**訂正内容**: 「まとまった資料がない」のは**日本語圏のみ**。**英語圏には実務者コミュニティ・ブログが複数存在する**。
+→ 以下、第8〜10章を追加。**第3章の不採用判定のうち「個人ブログ」を理由にしていたものは、第8章で再評価している**（不採用のままのもの／条件付きで使えるものを区別した）。
+
+> ⚠️ **本章も WebFetch 検証はできていない**（エグレス遮断は継続）。ライセンス情報も**検索インデックス経由の観測**であり、**本人が各サイトの Terms / Copyright ページを自分の目で確認すること**。特に第9章の判断は金銭が絡むので、確認は必須。
+
+---
+
+## 8. 英語圏コミュニティ・ブログ一覧（D）
+
+### 評価軸の凡例
+
+- **書き手**: 実務者 / 研究者 / マーケ / 不明
+- **深さ**: ★★★＝実務レベルの踏み込み（数式・設計判断・失敗事例）／★★＝技術解説として妥当／★＝表面的な用語解説
+- **信頼度**: 出典明示の有無、更新頻度、運営主体の透明性で判定
+- **ライセンス**: 転載可否。**未確認は「要確認」と明記**
+
+---
+
+### D-1. MapYourTech — **最重要。ただし出典にはできない**
+
+| 項目 | 内容 |
+|---|---|
+| URL | `https://mapyourtech.com/` |
+| 主要記事 | `/osnr-fundamentals/`、`/edfa-noise-figure-and-why-every-span-adds-ase/`、`/bol-and-eol-margin-design-for-osnr-gosnr-and-q/`、`/basics-of-important-parameters-in-dwdm-link-design/`、`/osnr-what-does-this-meanwhy-do-we-need-and-how-to-take-care-of-it/`、`/common-otn-alarms-and-their-troubleshooting-steps/`、`/in-house-multivendor-optical-link-planning-design-and-simulation-for-operators/`、`/automating-span-health-and-margin-analysis-in-multi-vendor-optical-networks/`、`/hollow-core-fiber-amplification-edfa-and-raman/` |
+| 運営者 | 個人〜小規模チーム運営（連絡先 contact@mapyourtech.com）。2011 年開始と自称 |
+| 書き手 | **実務者**（"created by working professionals" と自称）。個々の記事に署名がない点は減点 |
+| 深さ | **★★★**。OSNR シミュレータ・リンクバジェット計算機を備え、BOL/EOL マージン設計、GSNR、多ベンダー環境のスパン健全性分析まで踏み込む。**依頼者が探していた「英語圏のまとまったサイト」の本命はここ** |
+| OSNR について | 記事①の全節に対応する内容がある。特に **§5（マージン: BOL/EOL）** と **§7（つまずき）** に効く。後述 D-1-a 参照 |
+| 更新頻度 | 高（記事数 905+ と自称）。近年も更新あり |
+| 信頼度 | **中**。内容は具体的だが**出典が明示されていない**。数値例（「1200km QPSK リンクで 3 年で 2 dB ドリフト」等）は検証不能 |
+| ライセンス | ⚠️ **`https://mapyourtech.com/copyright-disclaimer/` に著作権表示あり。「オリジナルコンテンツ、著作権保護」「海賊行為防止のためセキュアリーダーを使用」と明記。転載・翻訳転載は明確に不可。**企業ライセンスは個別問い合わせ |
+| **使い方** | **読んで理解する → 事実は ITU-T / ベンダー AN / 学術論文で裏を取る → 自分の言葉で書く。引用も最小限にとどめ、URL を出典として並べない**（出典明示がないサイトを出典にすると、記事の信頼性が下がる） |
+
+#### D-1-a. MapYourTech から拾った「実務者のつまずき指摘」（**記事①§7の最有力ネタ。ただし要裏取り**）
+
+> **「1スパンの OSNR を `P_TX + G − L − NF` と書いてしまう誤り。増幅器利得 G は相殺されるので、この式はゼロ近傍や負の値を出し、健全なリンクを不良と誤判定する。スケールを決めるのは帯域定数 (+58) のほうである。」**
+
+- **なぜ重要か**: これは**「経験者しか知らない誤り方」**であり、記事①§7「つまずきポイント」の骨格になりうる。
+- **注意**: **1ソースのみ。しかも出典明示のないブログ。** そのまま書かない。
+- **打つ手**: `+58 = 10log₁₀(h·ν·B_ref)`（1550nm、0.1nm 参照帯域）の導出を A-3-5（UCSB 講義）や A-1-2（G.680）で確認し、**自分の言葉で導出から説明する**。導出できれば「なぜ G が消えるか」も自分で書ける。
+
+---
+
+### D-2. EXFO Blog / Resources — **測定器ベンダー。実務者向けで質が高い**
+
+| 項目 | 内容 |
+|---|---|
+| URL | `https://www.exfo.com/en/resources/blog/` |
+| OSNR 関連記事（**記事①に直結**） | ・**What should the OSNR values be in DWDM networks?** `https://www.exfo.com/en/resources/blog/osnr-values-dwdm-networks/`<br>・**OSNR Measurement in Coherent 40G/100G Networks** `https://www.exfo.com/en/resources/blog/osnr-measurement-coherent-40g-100g-networks/`<br>・**OSNR in Next-Gen networks（in-band OSNR）** `https://www.exfo.com/en/resources/blog/inband-osnr-measurement/`<br>・**OSNR Flatness \| DWDM** `https://www.exfo.com/en/resources/blog/osnr-flatness-dwdm/`<br>・**Overcoming the challenges of OSA measurements** `https://www.exfo.com/en/resources/blog/challenges-osa-measurements/`<br>・New Standard from IEC: OSNR Measurements `https://www.exfo.com/en/resources/blog/new-iec-standard-osnr-measurements/`<br>・Importance of measuring OSNR across submarine cable networks `https://www.exfo.com/en/resources/blog/understanding-submarine-osnr/` |
+| 書き手 | **実務者寄り**（アプリケーションエンジニア／プロダクトマネージャ）。マーケ色はあるが技術的中身がある |
+| 深さ | **★★★（OSNR に限れば最良）**。測定の現場で何が起きるかを書いている。**「測ると値がズレる理由」＝記事①§5 の核心** |
+| OSNR について | ・受信端の目安 15〜18 dB（100G DPSK で >約18 dB）<br>・必要 OSNR は**変調方式・データレート・ライトパス上の位置・網種別・目標 BER**で変わる<br>・**送信側に近いほど必要 OSNR は高く、受信側に近いほど低い**（増幅器と ROADM が雑音を足していくため）<br>・IEC 61280-2-9 の帯域外補間法が 100G+ / ROADM 網で破綻する理由<br>・OSNR フラットネス（波長間のばらつき）という運用視点 |
+| 更新頻度 | 中〜高。継続運営 |
+| 信頼度 | **高**。企業公式・技術部門執筆。ただし**自社製品への誘導が入る**点は割り引く |
+| ライセンス | ⚠️ **企業サイト。All rights reserved。転載・図表流用は不可。** 事実の参照と、出典明示つきの短い引用のみ |
+
+---
+
+### D-3. NANOG（North American Network Operators' Group）— **オペレータ視点の公開チュートリアル**
+
+| 項目 | 内容 |
+|---|---|
+| URL | `https://nanog.org/` / アーカイブ `https://archive.nanog.org/` |
+| 主要資料 | ・**DWDM & Packet Optical Fundamentals（NANOG 64, Peter Landon）** `https://archive.nanog.org/sites/default/files/meetings/NANOG64/1017/20150602_Landon_Tutorial_Dwdm__v3.pdf`<br>・Tutorial: DWDM & Packet Optical Fundamentals `https://nanog.org/news-stories/nanog-tv/top-talks/tutorial-dwdm-packet-optical-fundamentals/`<br>・Tutorial: Everything You Always Wanted to Know About Optical Networking `https://nanog.org/news-stories/nanog-tv/top-talks/tutorial-tutorial-everything-you-always-wanted-know-about-optical-networking/`<br>・NANOG 講演のキュレーション（第三者 gist）`https://gist.github.com/azet/0d8488426fd2b097b99ee39ce18b0462`<br>・メーリングリスト過去ログ（MIT ミラー）`https://diswww.mit.edu/charon/nanog/` |
+| 書き手 | **現役のネットワーク事業者・ベンダーアーキテクト**。NANOG は営利団体ではなくオペレータコミュニティ |
+| 深さ | **★★★**。「事業者が実際に何を気にするか」が出る。DWDM の全体像を掴むのに最適 |
+| OSNR について | チュートリアル内で扱われる（未確認）。**§2「なぜ現場は OSNR を見るのか」のオペレータ視点の裏付けとして期待できる** |
+| 更新頻度 | 年3回のミーティングごと。アーカイブは恒久 |
+| 信頼度 | **高**。公開の場での発表であり、聴衆が同業のプロなので誤りが淘汰されやすい |
+| ライセンス | ⚠️ **著作権は各発表者に帰属**。スライドの図の流用は不可。**閲覧・参照は自由** |
+| 備考 | **PDF 直リンクが残っているのが強い**（`archive.nanog.org`）。まずここを検証すること |
+
+---
+
+### D-4. XKL — NANOG 97 発表の DWDM 入門
+
+| 項目 | 内容 |
+|---|---|
+| URL | `https://xkl.com/intro-to-dwdm-tutorial/` |
+| 書き手 | Chad（XKL Principal Solutions Architect）。**ベンダーの実務アーキテクト** |
+| 深さ | **★★**。チャネル、固定グリッド／フレックスグリッド、mux/demux フィルタ、トランシーバ／トランスポンダ／マックスポンダの概念整理 |
+| OSNR について | 入門レベル。**本の1〜2章（用語整理）向き**。記事①には浅い |
+| 信頼度 | 中〜高（NANOG で発表した内容の再掲） |
+| ライセンス | 企業サイト。転載不可 |
+
+---
+
+### D-5. Cisco — 公開ドキュメント＋オペレータコミュニティ
+
+| 項目 | 内容 |
+|---|---|
+| URL | ・**Introduction to DWDM Technology** `https://www.cisco.com/c/dam/global/de_at/assets/docs/dwdm.pdf`<br>・**ONS 15454 DWDM Troubleshooting Guide** `https://www.cisco.com/c/en/us/td/docs/optical/15000r9_2/dwdm/troubleshooting/guide/b_454d92_ts/m_454d91_generalts.html`<br>・**Cisco Community: Optics and Optical Networking**（Ask the Expert: Troubleshooting on Cisco DWDM NCS 2000）`https://community.cisco.com/t5/optics-and-optical-networking/ask-the-expert-troubleshooting-on-cisco-dwdm-ncs-2000-series/m-p/4449336/` |
+| 書き手 | Cisco の TAC / エンジニア＋**現場の実務者**（コミュニティ側） |
+| 深さ | **★★★（トラブルシューティングに限れば最良の公開資料）** |
+| OSNR について | **§6「足りないと言われたときに確認する順序」の唯一の実用的な公開一次資料**。「汚れた接続 or 入力スパンの過大損失」「増幅器の過大ゲインチルト or 対向 TXP/MXP の波長設定誤り」といった切り分けが具体的に書かれている |
+| 更新頻度 | ドキュメントは版固定。コミュニティは継続 |
+| 信頼度 | **高**（公式ドキュメント）／**中**（コミュニティ投稿は個人の発言） |
+| ライセンス | ⚠️ **Cisco 著作物。転載不可。** さらに**機器固有の記述が多い**ので、記事が Ciena 寄りである以上、手順をそのまま写さないこと。**「切り分けの型」の妥当性確認にとどめる** |
+| 備考 | **記事①§6は「経験で書く」のが正解**。Cisco を写すと Cisco の記事になってしまう |
+
+---
+
+### D-6. IEEE / 標準化・業界団体の公開解説
+
+| # | サイト | URL | 評価 |
+|---|---|---|---|
+| D-6-1 | **IEEE 802.3 公開資料（OSNR Link Budget Methodology）** | `https://www.ieee802.org/3/cn/public/18_11/lyubomirsky_3cn_01a_1118.pdf` | **書き手＝実務者（標準化会合の寄書）／深さ★★★／信頼度 高**。`ieee802.org/.../public/` 配下は**完全公開**（会合資料は誰でも閲覧可）。**OSNR リンクバジェットの手法を扱っており、記事①§4・§5 に直結**。⚠️ 802.3cn は Ethernet 系なので DWDM 長距離とは前提が異なる点に注意 |
+| D-6-2 | **IEEE ComSoc Technology Blog** | `https://techblog.comsoc.org/category/coherent-optics/` / `/category/optical-transceivers/` | 書き手＝業界ウォッチャー／深さ★★／信頼度 中〜高。**動向把握向き**。技術の深掘りは薄い |
+| D-6-3 | IEEE ComSoc CTN | `https://www.comsoc.org/publications/ctn/getting-religious-coherent-technologies-high-speed-optical-access-systems` | コヒーレント技術の論説。深さ★★ |
+| D-6-4 | **OIF（Optical Internetworking Forum）** | `https://www.oiforum.com/oif-publishes-implementation-agreement-for-400zr-coherent-optical-interface/` | **400ZR IA の公式アナウンス**。IA 本体は会員向けの可能性あり（要確認）。**本の5〜6章（コヒーレント／DCI）の一次情報** |
+| D-6-5 | IEEE Photonics Society | `https://ieeephotonics.org/announcements/ofc-2023-...` | 学会アナウンス。動向のみ |
+
+---
+
+### D-7. FOA（Fiber Optic Association）— **非営利・ベンダー中立の教育リソース**
+
+| 項目 | 内容 |
+|---|---|
+| URL | ・**FOA Online Reference Guide 目次** `https://www.thefoa.org/tech/ref/contents.html`<br>・Singlemode Fiber Types `https://www.thefoa.org/tech/smf.htm`<br>・**Guide To Fiber Optic Network Design** `https://www.thefoa.org/tech/guides/DesG.pdf`<br>・Guidelines On What Loss To Expect When Testing `https://www.thefoa.org/tech/loss-est.htm`<br>・Fiber Optic Testing FAQs `https://www.thefoa.org/tech/FAQS/FAQ-TEST.HTM`<br>・Fiber Textbook Guide `https://www.thefoa.org/Textbook%20Guides/FRG Fiber Textbook Guide-Q.pdf` |
+| 書き手 | **FOA（非営利の認定団体）の技術者**。ベンダー中立を明示 |
+| 深さ | **★★**（DWDM/OSNR は浅め、**ロスバジェット・測定・現場作業は★★★**） |
+| OSNR について | 直接の OSNR 記述は薄い。ただし**「ロスバジェット」の考え方は §5 の下地**になる。**光パワーと OSNR の混同**という §7 ネタの裏付けにも使える |
+| 更新頻度 | 継続更新 |
+| 信頼度 | **高**。**販売目的がないため中立**。記事のトーンを Ciena 寄りにする際の「業界一般側」の錨として価値が高い |
+| ライセンス | ⚠️ FOA 著作物。**無償公開だが転載は不可**（要 Terms 確認） |
+
+---
+
+### D-8. 販売業者・ベンダー系ブログ（**入門理解用。出典にはしない**）
+
+| # | サイト | URL | 評価 |
+|---|---|---|---|
+| D-8-1 | FS.com Blog / Community | `https://www.fs.com/blog/mastering-optical-link-budgets-for-embedded-wdm-network-optimization-11760.html` / `https://community.fs.com/article/itu-t-standards-for-various-optical-fibers.html` / `https://www.fs.com/blog/a-brief-introduction-to-wavelength-selective-switch-wss-of-roadm-4617.html` | 書き手＝マーケ寄り／深さ★★／**信頼度 中**。図が分かりやすく用語の当たり付けに便利。**出典にはしない** |
+| D-8-2 | PacketLight | `https://www.packetlight.com/technology/dwdm-network-technology` / `/resources/articles/dwdm-technology-high-capacity-optical-networking` | 同上。深さ★★ |
+| D-8-3 | ADTRAN "What is DWDM?" | `https://www.adtran.com/en/products-and-services/technology/what-is-dwdm` | 深さ★。用語確認のみ |
+| D-8-4 | DWDM.ME Blog | `https://dwdm.me/blog/how-to-reduce-the-cost-of-an-optical-transport-network/` | 書き手＝不明（実務者の可能性）／深さ★★／**要 About ページ確認**。経済性の視点は珍しい |
+| D-8-5 | MercuryZ | `https://www.mercuryz.com/modern-dwdm-engineering-high-capacity-optical-transport/` | 書き手不明／深さ★★／**信頼度 低〜中**。要確認 |
+| D-8-6 | EDGE Optical Solutions KB | `https://edgeoptic.com/kb_article/osnr-meaning-and-calculation` | 深さ★★／信頼度 低〜中 |
+| D-8-7 | Fibre Systems（業界誌） | `https://www.fibre-systems.com/white-paper/40g100g-osnr-measurements-pol-mux-osa` | 業界誌。ホワイトペーパー窓口。**登録要の可能性** |
+
+---
+
+### D-9. 実務者フォーラム — **調査結果: 期待したほど無い**
+
+| 対象 | 結果 |
+|---|---|
+| Reddit（r/networking, r/fiberoptics 等） | **DWDM/OSNR に特化した実質的な議論を検索で確認できなかった。**光伝送は Reddit では層が薄い。一次調査としては空振り。※本人が直接 Reddit 内検索する価値はある |
+| Stack Exchange（Network Engineering / Electrical Engineering） | **DWDM・OSNR の実質的な Q&A を確認できなかった。**光伝送レイヤ0は SE の守備範囲外に近い |
+| **Cisco Community（Optics and Optical Networking）** | **○ 実在し、実務者が質問・回答している**（D-5 参照）。**現時点で最も実務者フォーラムに近い** |
+| **NANOG メーリングリスト** | **○ 過去ログが公開**（`https://diswww.mit.edu/charon/nanog/`）。事業者の生の議論 |
+| **my.ciena.com の Q&A** | **× 顧客ポータル内（例: `https://my.ciena.com/CienaPortal/s/question/0D54z00007VgHyuCAF/how-to-interpret-snr-margin-and-prefec-fail-alarms`）。ログイン必須。第3章のとおり不採用。**⚠️ タイトルが「SNR margin と pre-FEC fail アラームの解釈」という記事①§6 ど真ん中の内容だが、**絶対に開かない・書かない** |
+
+> **結論**: 英語圏の「まとまったサイト」の実体は、**フォーラムではなくブログ／コミュニティサイト（D-1, D-2）とオペレータ団体のチュートリアル（D-3）**である。
+
+---
+
+## 9. 引用ルール（**有料の技術書を作る以上、ここが最重要**）
+
+> ⚠️ 以下は法律の専門家の助言ではない。**金額が絡む出版なので、判断に迷ったら弁護士か出版社に確認すること。**
+> ただし「これをやったらアウト」の線は明確なので、**その線だけは絶対に越えないこと。**
+
+### 9-1. 絶対にやってはいけないこと
+
+| ❌ NG 行為 | なぜ |
+|---|---|
+| **英語記事を翻訳して掲載する** | **翻訳は「翻案」であり著作権者の専有権（日本著作権法27条）。無断翻訳掲載は明確な著作権侵害。**「出典を書いたから大丈夫」は成立しない |
+| **図・表・グラフをコピーして貼る** | 図表は独立した著作物。**ライセンスが明示されていない限り不可。**（→ 9-4） |
+| 記事の構成をそのままなぞる | 「編集著作物」に触れうる。加えて**読者にバレる** |
+| MapYourTech / EXFO / Cisco / Ciena の文章を要約と称して切り貼りする | 要約でも表現に依拠していれば翻案。**自分の言葉で再構成すること** |
+| MIT OCW の教材を有料書に転載する | **CC BY-NC-SA = 非営利限定。有料書は商用利用でありライセンス違反** |
+| Wikipedia / Stack Exchange の文章を有料書に取り込む | **CC BY-SA の ShareAlike 条項により、派生物も同ライセンスでの公開が必要になる。有料書と両立しない** |
+| `my.ciena.com` 配下の内容を、記憶からでも書く | **守秘義務・ライセンス違反。第3章のとおり** |
+
+### 9-2. やってよいこと（**これだけで技術書は書ける**）
+
+| ✅ OK 行為 | 根拠・条件 |
+|---|---|
+| **事実・数値・物理法則を、自分の言葉で書く** | **アイデア・表現二分論**。事実そのものに著作権はない。「1550nm で 0.1nm ≒ 12.5GHz」は誰が書いても同じ事実 |
+| **複数のソースで同じ事実を確認し、自分の理解で再構成する** | **これが本作業の本筋**。第10章がそのための材料 |
+| 数式を自分で導出して書く | 数式に著作権はない。**導出過程を自分で書けば完全に安全**（かつ記事の価値も上がる） |
+| **出典を明示して、必要最小限を「引用」する** | 日本著作権法32条の要件を全て満たすこと（→9-3） |
+| **図を自分で描き直す** | データ・事実に基づき**自分で新規に作図**する。既存図のトレースは不可 |
+| URL を出典として示す（リンクする） | リンク自体は複製ではない |
+| 標準規格の**番号と要旨**に言及する（「ITU-T G.694.1 は 193.1 THz を基準とするグリッドを定めている」） | 事実の記述。**条文の逐語転載は不可** |
+
+### 9-3. 「引用」の4要件（日本著作権法32条・判例）— **全部満たさないと引用にならない**
+
+1. **主従関係**: 自分の文章が主、引用が従。**引用が段落の過半を占めたらアウト**
+2. **明瞭区別**: 引用部分が明確に区別されている（`>` の引用ブロック、鉤括弧）
+3. **必然性**: その引用でなければならない理由がある（批評・検証・比較のため）
+4. **出所明示**: 著作者名・タイトル・URL・参照日を書く
+
+**実務上の目安**: 英語原文を短く（1〜2文）引用ブロックに入れ、**直後に自分の解説を長く書く**。訳文を併記する場合も「拙訳」と明記し、原文と併置する。**訳文だけを載せない。**
+
+### 9-4. ソース別ライセンス判定表（**要本人確認**）
+
+| ソース | ライセンス（観測） | 図表流用 | 本文引用 | 事実の利用 |
+|---|---|---|---|---|
+| **ITU-T 勧告** | ITU 著作権。**無償ダウンロード ≠ 自由利用**。複製には ITU の許諾が必要 | ❌ | △（32条の引用要件内で最小限） | ✅ |
+| **IEC 規格** | 有償。そもそも入手不可 | ❌ | ❌ | △（第三者の解説経由で） |
+| **MapYourTech** | ⚠️ **著作権保護を明示（`/copyright-disclaimer/`）。「セキュアリーダーで海賊行為を防止」と記載** | ❌ | ❌（実質不可） | ✅（**別ソースで裏取り必須**） |
+| **EXFO / VIAVI / Keysight / Anritsu / Cisco / Ciena / XKL** | 企業著作物、All rights reserved | ❌ | △（32条内） | ✅ |
+| **NANOG 発表資料** | **著作権は各発表者**。閲覧自由 | ❌ | △ | ✅ |
+| **IEEE 802 公開寄書** | IEEE / 寄稿者。**閲覧は完全公開** | ❌ | △ | ✅ |
+| **FOA** | FOA 著作物。無償公開 | ❌ | △ | ✅ |
+| **MIT OpenCourseWare** | ⚠️ **CC BY-NC-SA 4.0（非営利限定）** | ❌**（有料書では不可）** | ❌**（有料書では不可）** | ✅ |
+| **arXiv 論文** | ⚠️ **論文ごとに違う**（arXiv perpetual license / CC BY / CC BY-NC-SA / CC0）。**各論文ページのライセンス表示を必ず見る** | CC BY なら △（要 attribution） | △ | ✅ |
+| **Optica / IEEE / Springer / SPIE 論文** | 購読制。OA 論文のみ CC ライセンス | 論文ごと | △ | ✅ |
+| **Wikipedia** | **CC BY-SA**（ShareAlike が有料書と衝突） | ❌ | ❌ | ✅ |
+| **Stack Exchange / Reddit** | SE は **CC BY-SA 4.0**（ShareAlike）／Reddit は投稿者が著作権保持 | ❌ | ❌ | ✅ |
+| **NTT技術ジャーナル / 富士通 / IEICE / 総務省** | 各社・各機関著作物。総務省資料は**政府標準利用規約（CC BY 互換）の可能性** → **要確認** | ❌（総務省のみ要確認） | △ | ✅ |
+| **プレスリリース（BusinessWire / PR TIMES 等）** | 報道用途で配布されているが著作権は発行元 | ❌ | ✅（事実の引用は通例許容） | ✅ |
+
+### 9-5. 執筆時の実務手順（**これをチェックリストとして使う**）
+
+```
+1. ソースを読む（英語でよい）
+2. 画面を閉じる          ← ★これが最重要。開いたまま書くと表現が写る
+3. 自分の言葉でメモを書く（日本語）
+4. 数値・事実は、別の独立したソースで最低もう1つ確認する
+   → 一致しなければ「諸説ある」と書くか、書かない
+5. 図が要るなら、事実に基づいて自分でゼロから描く
+6. 参考文献リストを記事末尾に置く（URL + 参照日）
+7. 公開前に、原文と自分の文章を並べて読み返す
+   → 語順や比喩が似ていたら書き直す
+```
+
+**「2. 画面を閉じる」を守れば、著作権侵害はほぼ起きない。** 開いたまま書くと無自覚に写す。
+
+### 9-6. 有料書に特有の追加注意
+
+- **無料記事（Zenn）と有料書で基準を変えない。** 有料のほうが権利者に発見されやすく、また「営利目的」で不利になる
+- **フェアユースは日本にはない。** 米国サイトの記事だからといって米国法の fair use は使えない
+- **AI に翻訳させても同じ。** 翻訳の主体が誰かは関係ない
+- **参考文献リストは必ず載せる。** 免責にはならないが、誠実さの証明になり、読者の信頼も上がる
+
+---
+
+## 10. 複数ソースで一致している事実の一覧（記事①で使えるもの）
+
+**信頼度の見方**:
+- **A（複数の独立した信頼できるソースで一致）**: 裏取り済みとして書いてよい。ただし**本人が原典を1つは開いて確認すること**
+- **B（2ソース、または1ソースが信頼できる企業/団体）**: 書いてよいが、**断定を弱める**か、原典確認を優先する
+- **C（1ソースのみ、または出典不明のブログのみ）**: **そのまま書かない。**必ず原典で裏を取る
+
+> ⚠️ 以下はすべて**検索インデックス経由で観測した内容**であり、**原典を直接読んでいない**。「ソース数」は「そう書いていると観測されたソースの数」であって、「本人が確認した数」ではない。
+
+### 10-1. §2「なぜ現場は OSNR を見るのか」
+
+| # | 事実 | ソース数 | 信頼度 | ソース |
+|---|---|---|---|---|
+| 10-1-1 | **OSNR は光伝送網の健全性を示す主要 KPI のひとつとして扱われている** | 4 | **A** | Ciena/EXFO(C-2-1)、EXFO blog(D-2)、MapYourTech(D-1)、NEC(A-4-1) |
+| 10-1-2 | **BER を決める要因は、光パワー・非線形歪み・電気系の雑音と歪み・OSNR の4つ。その中で OSNR の寄与が支配的** | 2 | **B** | XKL/NANOG 系解説(D-4)、MapYourTech(D-1) |
+| 10-1-3 | **OSNR が低いと再生中継までの到達距離が制限される** | 3 | **A** | EXFO(D-2)、MapYourTech(D-1)、FS.com(D-8-1) |
+| 10-1-4 | **OSNR が足りないと、より低次の変調方式に落とさざるを得ない**（例: 18dB では QPSK 止まり、25dB あれば 16QAM で周波数利用効率2倍） | 1 | **C** | MapYourTech のみ。**具体的な dB 値はそのまま書かない**。定性的な「OSNR が変調方式の選択を縛る」だけなら B 相当 |
+
+### 10-2. §3「OSNR は何と何を比べているのか」
+
+| # | 事実 | ソース数 | 信頼度 | ソース |
+|---|---|---|---|---|
+| 10-2-1 | **OSNR ＝ 信号光パワー / 雑音光パワー、dB 表記。`OSNR = 10log₁₀(S/N)`** | 6+ | **A** | NEC、EXFO、VIAVI、Ciena、Optiwave、MapYourTech |
+| 10-2-2 | **参照帯域は 0.1 nm。1550nm 帯において 0.1nm ≒ 12.5 GHz** | 4 | **A** | VIAVI(A-2-1)、NSF PAR 論文(A-3-1)、MapYourTech、ITU-T 系解説 |
+| 10-2-3 | **測定帯域 B_m が参照帯域 B_r と異なる場合、ASE は B_r/B_m で重み付けして換算する** | 2 | **B** | 学術資料(A-3 系)、VIAVI。**§7「参照帯域の違いによる値のズレ」の核心なので、必ず原典で確認** |
+| 10-2-4 | **OOK/ガウス統計の前提で `BER = ½·erfc(Q/√2)`** | 3 | **A** | Optiwave(A-2-10)、学術資料、一般教科書 |
+| 10-2-5 | **BER < 10⁻⁹ には Q > 6、BER < 10⁻¹² には Q > 7 が必要** | 2 | **B** | Optiwave、学術資料。**教科書的に広く知られた値** |
+| 10-2-6 | 経験式 `log₁₀(BER) = 10.7 − 1.45×OSNR` | 1 | **C** | Optiwave のみ。**適用条件が不明。書かないほうがよい** |
+
+### 10-3. §4「なぜ劣化するのか」
+
+| # | 事実 | ソース数 | 信頼度 | ソース |
+|---|---|---|---|---|
+| 10-3-1 | **EDFA は ASE（自然放出光が誘導放出で増幅されたもの）を必ず付加し、これが主要な雑音源** | 6+ | **A** | アンリツ(A-2-9)、EXFO(A-2-4)、フィバーラボ、光響、UCSB 講義、NEC |
+| 10-3-2 | **雑音指数 NF は「増幅によって SN 比がどれだけ劣化するか」を表す** | 4 | **A** | アンリツ、フィバーラボ、EXFO、UCSB 講義 |
+| 10-3-3 | **ASE は消えない。次段の増幅器は信号と既存の ASE を両方増幅し、さらに自前の ASE を足す。多段では ASE パワーが線形に加算される** | 4 | **A** | MapYourTech、UCSB 講義、ITU-T G.680 Appendix II（要確認）、EXFO |
+| 10-3-4 | **同一スパンを N 段カスケードすると、OSNR は `10log₁₀(N)` だけ劣化する** | 3 | **A** | MapYourTech、UCSB 講義、教科書的な標準式。**式の導出は自分で書けるので、そうすること** |
+| 10-3-5 | **1スパンの OSNR ≒ `P_ch − NF − L_span + 58`（0.1nm・1550nm 基準）** | 2 | **B** | MapYourTech、業界標準式。**`+58` の由来（`10log₁₀(h·ν·B_ref)`）を自分で導出してから書く** |
+| 10-3-6 | **必要 OSNR はライトパス上の位置で変わる。送信側に近いほど高く、受信側に近いほど低い**（増幅器と ROADM が雑音を足していくため） | 1 | **B** | EXFO(D-2) のみだが、**測定器ベンダー公式の記述であり信頼度は高い**。§4 の締めに効く良い視点 |
+| 10-3-7 | **増幅器のゲインチルトにより、C帯の中で波長ごとに OSNR がばらつく（一部の波長だけ落ちる）** | 3 | **A** | Cisco(D-5)、EXFO「OSNR Flatness」(D-2)、MapYourTech |
+
+### 10-4. §5「設計値と実測値の差 — マージン」
+
+| # | 事実 | ソース数 | 信頼度 | ソース |
+|---|---|---|---|---|
+| 10-4-1 | **測定器の仕様（分解能帯域幅、ダイナミックレンジ等）の違いだけで、同じリンクでも OSNR 実測値がズレる** | 2 | **B** | EXFO AN261(A-2-5)、EXFO「OSA 測定の課題」(D-2)。**「なぜ設計値と実測値がズレるか」を、経験でなく公開資料で説明できる貴重なネタ** |
+| 10-4-2 | **GSNR = P_ch/(P_ASE + P_NLI)。非線形干渉(NLI)をガウス雑音として扱う（GN モデル）のが実務上の近似** | 4 | **A** | arXiv 複数(A-3-2, B-17)、JOCN(A-3-4)、MapYourTech |
+| 10-4-3 | **EOL（寿命末期）でのシステムマージンとして 2〜3 dB 以上を設計目標に置く**（部品劣化・融着修理・モデル誤差を吸収するため） | 2 | **B** | JOCN/arXiv 系(A-3-3, A-3-4)、MapYourTech。**具体的な dB 値を書くなら必ず原典を開いて確認。前職の値と混ざらないよう注意** |
+| 10-4-4 | **「マージンをゼロ近くまで削って容量に変える」という設計思想（near-zero margin networking）が業界に存在する** | 3 | **A** | Ciena(C-2-2〜C-2-4)、JOCN(A-3-4)、arXiv(A-3-3) |
+| 10-4-5 | **必要 OSNR は変調方式・データレート・網種別・目標 BER で変わる（単一の閾値は存在しない）** | 3 | **A** | EXFO(D-2)、MapYourTech、Cisco。**§5 の主張の骨格になる。「〇〇dB あれば OK」という書き方をしない根拠** |
+| 10-4-6 | 受信端の目安として OSNR > 15〜18 dB（100G DPSK で >約18 dB） | 2 | **B** | EXFO(D-2)、MapYourTech。⚠️ **「目安」以上には書かない。**10-4-5 と必ずセットで書くこと |
+
+### 10-5. §6「足りないと言われたときに確認する順序」
+
+| # | 事実 | ソース数 | 信頼度 | ソース |
+|---|---|---|---|---|
+| 10-5-1 | **コネクタ端面の汚れ・傷は損失と反射を増やし、受信端 OSNR を下げて BER を悪化させる** | 3 | **A** | Cisco(D-5)、FOA(D-7)、MapYourTech |
+| 10-5-2 | **単一波長だけ落ちる場合は、増幅器のゲインチルト、または対向 TXP/MXP の波長設定誤りを疑う** | 2 | **B** | Cisco(D-5)、MapYourTech。**「1波長だけか、全波長か」で切り分けが分岐するという構造は §6 の骨格に使える** |
+| 10-5-3 | **入力パワー低下の切り分けは、まずファイバの物理的損傷・損失増を確認するのが定石** | 3 | **A** | Cisco(D-5)、FOA(D-7)、複数の実務系記事 |
+| 10-5-4 | 実劣化の内訳例（EDFA ポンプ劣化、コネクタ汚れ、融着劣化がそれぞれ 1.2 / 0.5 / 0.3 dB） | 1 | **C** | MapYourTech のみ。**具体的な内訳値は書かない。**「複数の小さな劣化が積み上がる」という定性的な話にとどめる |
+
+> **§6 についての結論**: **公開資料で書けるのは「何を疑うか」までで、「どの順で疑うか」は経験でしか書けない。**
+> だからこそ**この節が記事①の価値の中心**になる。出典で埋めようとしないこと。
+
+### 10-6. §7「つまずきポイント」
+
+| # | 事実 | ソース数 | 信頼度 | ソース |
+|---|---|---|---|---|
+| 10-6-1 | **IEC 61280-2-9 の帯域外補間法**（隣接チャネルとの中間点で雑音を測り線形補間）**は、100G+ のコヒーレント信号や ROADM 経由の網では成立しない** | 3 | **A** | VIAVI(A-2-1)、EXFO(A-2-6, D-2)、IEC 規格要旨。**§7 の最有力ネタ。「昔のやり方が通じなくなった」という物語になる** |
+| 10-6-2 | **その後 IEC 61282-12「In-band OSNR」が策定された** | 2 | **B** | EXFO(A-2-6)、業界記事 |
+| 10-6-3 | **コヒーレント受信機（DSP）側から OSNR を推定できる／するようになった** | 3 | **A** | NSF PAR 論文(A-3-1)、arXiv NN 推定(A-3-7)、Ciena(C-2-2) |
+| 10-6-4 | **偏波多重信号では、従来の OSA による OSNR 測定がそのままでは使えず、Pol-Mux 対応の手法が必要** | 3 | **A** | EXFO(D-2 複数記事)、VIAVI(A-2-1)、業界誌(D-8-7) |
+| 10-6-5 | **1スパン OSNR を `P_TX + G − L − NF` と書く誤り**（G が相殺され、値がゼロ近傍や負になり、健全なリンクを不良と誤判定する。スケールを決めるのは帯域定数 +58 のほう） | 1 | **C** | MapYourTech のみ。⚠️ **裏取り必須だが、記事①§7 の最有力候補。**自分で式を導出できれば、出典なしで自分の言葉として書ける |
+| 10-6-6 | **SD-FEC は数 dB 分の OSNR ペナルティを取り返す（代償は複雑さと 20% 程度のオーバーヘッド、遅延）** | 3 | **A** | CableLabs(B-15)、MERL(B-16)、MapYourTech |
+| 10-6-7 | **OSNR が 3 dB 下がると BER は数桁悪化する（急峻な依存性）** | 1 | **C** | MapYourTech のみ。**定性的に「急峻」と書くだけならA相当**（Q-BER の erfc 特性から自明）。**具体的な桁数は書かない** |
+
+### 10-7. 本（1〜6章）向けに一致が取れているもの
+
+| # | 事実 | ソース数 | 信頼度 |
+|---|---|---|---|
+| 10-7-1 | **DWDM グリッドは 193.1 THz を基準に定義。固定グリッドは 12.5 / 25 / 50 / 100 GHz 間隔。フレキシブルグリッドは中心 6.25 GHz 粒度、スロット幅 12.5×m GHz** | 3 | **A**（ITU-T G.694.1 要旨、IETF ドラフト、複数解説） |
+| 10-7-2 | **G.652 は 1310nm ゼロ分散。1550nm での波長分散は約 17 ps/nm/km、損失約 0.2 dB/km、PMD 概ね 0.1 ps/√km 未満** | 3 | **A**（FOA、複数解説。**原典 G.652 で必ず確認**） |
+| 10-7-3 | **G.655（NZ-DSF）は 1550nm 帯で意図的に小さな分散を残し、四光波混合(FWM)を抑える設計** | 3 | **A** |
+| 10-7-4 | **SPM / XPM / FWM はいずれもカー効果（パワー依存の屈折率）に由来。SPM と SBS は単一チャネルでも起きるが、XPM / FWM / SRS は多重系(DWDM)特有** | 4 | **A**（複数の学術資料） |
+| 10-7-5 | **ROADM の第3世代は WSS ベース。WSS は任意の出力ポートに任意の波長を出せる（ポートと波長が独立）** | 3 | **A**（IEEE JSTQE、FS.com、複数解説） |
+| 10-7-6 | **400ZR は OIF の Implementation Agreement（2020-04-29 公開）。80km 級の増幅系 DCI 向けにマルチベンダ相互接続を規定** | 2 | **A**（OIF 公式、業界誌） |
+
+---
+
+## 11. 追記後の作業順序（本人向け）
+
+```
+【1日目・30分】第4章 4-1 の ★★★ 7本をシークレットウィンドウで検証
+              → 開けたものを第1章「採用リスト」へ
+
+【2日目・30分】第8章の D-1 / D-2 / D-3 / D-5 / D-7 を開いて、
+              ライセンス表示（Terms / Copyright / Legal）を確認
+              → 第9章 9-4 の表を実測値で埋め直す
+
+【3日目・60分】第10章の信頼度 C の項目（10-1-4, 10-2-6, 10-5-4, 10-6-5, 10-6-7）を
+              一次資料で裏取り。取れなければ記事から落とす
+              ※ 10-6-5 だけは、式を自分で導出できれば出典不要になる
+
+【4日目〜】   記事①執筆。9-5 の手順を守る（特に「画面を閉じる」）
+```
+
+---
+
+## 12. 更新履歴
+
+| 日付 | 内容 |
+|---|---|
+| 2026-08-30 | 初版。WebSearch により候補 60 件超を収集。**外部エグレス遮断により WebFetch 検証は 0 件**。採用 0 / 不採用 40 / 検証待ち・検証不能 55 |
+| 2026-08-30（追記） | 前提訂正（英語圏には実務者コミュニティが存在する）を受け、第8章（英語圏コミュニティ 9 系統・30 サイト超）、第9章（引用ルール・ライセンス判定表）、第10章（複数ソース一致事実 33 項目）を追加。あわせて **MIT OCW のライセンス記述の誤り（CC BY-NC-SA＝非営利限定であり有料書には使えない）を訂正**し、MapYourTech 等を第3章から第8章に再分類 |
