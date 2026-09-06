@@ -13,6 +13,8 @@
 | 口座・各種アカウント | 本人が開設対応可能 |
 | 開発手段 | Claude Code を主力とする |
 | **就業規則** | **副業可（2026-08-30 本人確認済み）** |
+| **Zenn** | **https://zenn.dev/dwdm** — ユーザー名 `dwdm` / 表示名 `jkmikan`（2026-09-01 開設） |
+| 本①の URL（予定） | `https://zenn.dev/dwdm/books/dwdm-intro` |
 
 ## 発信スタンス
 
