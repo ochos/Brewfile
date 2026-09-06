@@ -39,7 +39,12 @@ GitHub で新規作成。**必ず Private。** 名前は何でもよい（例: `
 git clone git@github.com:<あなた>/zenn-content.git
 ```
 
-### 3. 組み立てる
+### 3. 表紙を確認する
+
+`publish/zenn/cover.png`（500×700px / 41KB）を用意してあります。
+`assemble.py` はコピーしないので、**手動で `books/dwdm-intro/cover.png` に置いてください**。
+
+### 4. 組み立てる
 
 ```bash
 # 検証だけ
@@ -51,11 +56,11 @@ python3 side-business/publish/zenn/assemble.py /path/to/zenn-content
 
 `books/dwdm-intro/` に `config.yaml` と6章が配置されます。
 
-### 4. Zenn と連携する
+### 5. Zenn と連携する
 
 `publish/SETUP.md` の手順に従う。**STEP 7 の確認事項（住所開示の要否など）を必ず先に済ませること。**
 
-### 5. 公開
+### 6. 公開
 
 ```bash
 cd /path/to/zenn-content
@@ -89,3 +94,6 @@ git add . && git commit -m "Add DWDM intro book" && git push
 - [ ] 本文中の `<!-- ▼ 筆者確認 ▼ -->` コメントを**全て削除した**
 - [ ] `SETUP.md` STEP 7 の確認事項が済んでいる（**住所開示の要否**）
 - [ ] リポジトリが **Private** である
+- [ ] `cover.png` を配置した
+
+公開の順序と日程は [`../SCHEDULE.md`](../SCHEDULE.md) を参照。
