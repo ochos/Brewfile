@@ -17,6 +17,9 @@ BOOK_SLUG = "dwdm-intro"
 
 # Zenn の制約（research/05-zenn-publishing.md より）
 SLUG_RE_ARTICLE = re.compile(r"^[0-9a-z\-_]{12,50}$")
+ARTICLES = ROOT / "drafts" / "articles"
+# 公開対象の記事（記事①は本②とセットで出すため除外）
+ARTICLES_TO_PUBLISH = ["02-what-is-multiplexed", "03-db-and-dbm", "04-pluggable-naming"]
 TITLE_MAX = 70
 
 
@@ -42,6 +45,57 @@ def check_chapter(path: pathlib.Path) -> list[str]:
 
     if len(path.stem) > 50:
         problems.append(f"{path.name}: チャプター slug が 50 字超")
+
+    return problems
+
+
+def check_article(path: pathlib.Path) -> list[str]:
+    """記事1本を検証し、問題のリストを返す。"""
+    problems = []
+    slug = path.stem
+    if not SLUG_RE_ARTICLE.match(slug):
+        problems.append(f"{path.name}: slug は 12〜50字の [0-9a-z-_] のみ（現在 {len(slug)}字）")
+
+    text = path.read_text(encoding="utf-8")
+    m = re.match(r"^---\n(.*?)\n---\n", text, re.S)
+    if not m:
+        return problems + [f"{path.name}: frontmatter がない"]
+    fm = m.group(1)
+
+    tm = re.search(r'^title:\s*"(.*)"\s*$', fm, re.M)
+    if not tm:
+        problems.append(f"{path.name}: title がない")
+    elif len(tm.group(1)) > TITLE_MAX:
+        problems.append(f"{path.name}: title が {len(tm.group(1))} 字（上限 {TITLE_MAX}）")
+
+    em = re.search(r'^emoji:\s*"(.*)"\s*$', fm, re.M)
+    if not em or len(em.group(1)) == 0:
+        problems.append(f"{path.name}: emoji が必要")
+
+    ty = re.search(r'^type:\s*"(tech|idea)"\s*$', fm, re.M)
+    if not ty:
+        problems.append(f"{path.name}: type は \"tech\" か \"idea\"")
+
+    tp = re.search(r"^topics:\s*\[(.*?)\]\s*$", fm, re.M)
+    if not tp:
+        problems.append(f"{path.name}: topics がない")
+    else:
+        ts = [x.strip().strip('"') for x in tp.group(1).split(",") if x.strip()]
+        if not (1 <= len(ts) <= 5):
+            problems.append(f"{path.name}: topics は1〜5個（現在 {len(ts)}個）")
+        for t in ts:
+            if len(t) > 18 or " " in t:
+                problems.append(f"{path.name}: topic '{t}' が18字超または空白を含む")
+
+    if not re.search(r"^published:\s*(true|false)\s*$", fm, re.M):
+        problems.append(f"{path.name}: published は真偽値（クオート不可）")
+
+    # コメント内は読者に見えないので、実際に生きている記述だけを見る
+    live = re.sub(r"<!--.*?-->", "", text, flags=re.S)
+    if "](#)" in live:
+        problems.append(f"{path.name}: 本へのリンクが '#' のまま（導線が死ぬ）")
+    if "▼ 筆者確認 ▼" in live or "▼ 筆者記入 ▼" in live:
+        problems.append(f"{path.name}: 筆者確認の指示が本文に出ている")
 
     return problems
 
@@ -79,6 +133,14 @@ def main() -> int:
     for p in sorted(src.glob("*.md")):
         problems.extend(check_chapter(p))
 
+    # 記事
+    for slug in ARTICLES_TO_PUBLISH:
+        ap = ARTICLES / f"{slug}.md"
+        if not ap.exists():
+            problems.append(f"記事 {slug}.md が無い")
+        else:
+            problems.extend(check_article(ap))
+
     # price の検証
     cfg = CONFIG.read_text(encoding="utf-8")
     pm = re.search(r"^price:\s*(.+)$", cfg, re.M)
@@ -101,6 +163,7 @@ def main() -> int:
         return 1
 
     print(f"検証 OK  チャプター {len(listed)}本 / 無料公開 {len(free)}本 ({', '.join(free)})")
+    print(f"         記事 {len(ARTICLES_TO_PUBLISH)}本 ({', '.join(ARTICLES_TO_PUBLISH)})")
 
     if args.check or not args.dest:
         return 0
@@ -110,7 +173,14 @@ def main() -> int:
     shutil.copy(CONFIG, dest_book / "config.yaml")
     for stem in listed:
         shutil.copy(src / f"{stem}.md", dest_book / f"{stem}.md")
+
+    dest_art = pathlib.Path(args.dest) / "articles"
+    dest_art.mkdir(parents=True, exist_ok=True)
+    for slug in ARTICLES_TO_PUBLISH:
+        shutil.copy(ARTICLES / f"{slug}.md", dest_art / f"{slug}.md")
+
     print(f"配置しました: {dest_book}")
+    print(f"配置しました: {dest_art}（記事 {len(ARTICLES_TO_PUBLISH)}本）")
     print("  次に: git add / commit / push → Zenn の /dashboard/deploys で結果を確認")
     return 0
 
